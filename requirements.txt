@@ -1,0 +1,8 @@
+
+psycopg2-binary
+pydantic
+pyyaml
+sqlalchemy == 1.4
+fastapi
+uvicorn 
+

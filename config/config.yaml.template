@@ -1,0 +1,15 @@
+---
+dev_local: #local db, local app
+  conn_str: postgresql://user:password@host:postgresql_port/db_name
+  host: localhost
+  API port: 5000
+
+production: #remote db, remote app
+  conn_str: postgresql://.../db_name  #get from remote db
+  
+
+testing: #local db, local app
+  conn_str: postgresql://user:password@host:postgresql_port/db_name_test
+  host: localhost
+  API port: 5001
+
