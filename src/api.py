@@ -10,10 +10,10 @@ import uvicorn
 
 from src.classes import Response
 import src.business as b
-from src.database import User
+from src.database import Athlete
 
 # CONSTANTS
-ENV = 'dev_local'
+ENV = 'dev_hybrid'
 # ENV = os.getenv("ENV")
 conn_str = b.get_conn_str(ENV)
 
@@ -34,14 +34,14 @@ def read_health():
     return {'API Status': HTTPStatus.OK}
 
 
-@app.get('/users')
+@app.get('/athlete')
 def read_users():
     """
-    Get all data from the atomic_winter postgres db 'users' table
+    Get all data from the atomic_winter postgres db 'athlete' table
     """
     try:
         with Session() as session:
-            user_data = session.query(User).all()
+            user_data = session.query(Athlete).all()
     except Exception as e:
         return Response(status_code=500, error_message=e)
-    return Response(body={'users':user_data})
+    return Response(body={'athletes':user_data})
