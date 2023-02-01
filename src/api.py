@@ -14,7 +14,10 @@ from src.database import Athlete
 
 # CONSTANTS
 ENV = 'dev_hybrid'
-# ENV = os.getenv("ENV")
+try:    
+    ENV = os.getenv("ENV")
+except:
+    pass 
 conn_str = b.get_conn_str(ENV)
 
 # INSTANTIATIONS 
