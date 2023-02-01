@@ -13,7 +13,7 @@ Session = sessionmaker(bind=engine)
 Base = declarative_base() 
 
 # Create table schema
-class Athlete(Base):
+class AthleteTable(Base):
     __tablename__ = "athlete"
 
     athlete_id = Column(Integer, Sequence("athlete_user_id_seq"), primary_key=True)
@@ -33,14 +33,14 @@ if __name__ == '__main__':
     Base.metadata.create_all(engine)
 
     # Create instance of User class and add to pending commits
-    kaja_user = Athlete(username="kaja", team="maroon")
+    kaja_user = AthleteTable(username="kaja", team="maroon")
     session = Session()
     session.add(
         kaja_user
     ) 
 
     # search db for Kaja
-    selected_athlete = session.query(Athlete).filter_by(username="kaja").first()
+    selected_athlete = session.query(AthleteTable).filter_by(username="kaja").first()
     print(selected_athlete)
 
     # commit to db
