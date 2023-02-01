@@ -1,0 +1,7 @@
+README.md
+pyproject.toml
+setup.cfg
+src/atomi_mini_api.egg-info/PKG-INFO
+src/atomi_mini_api.egg-info/SOURCES.txt
+src/atomi_mini_api.egg-info/dependency_links.txt
+src/atomi_mini_api.egg-info/top_level.txt
