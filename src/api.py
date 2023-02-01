@@ -15,6 +15,7 @@ from src.database import AthleteTable
 # CONSTANTS
 ENV = b.get_env('dev_hybrid')
 conn_str = b.get_conn_str(ENV)
+# conn_str = os.getenv('conn_str')
 
 # INSTANTIATIONS 
 app = FastAPI() 
