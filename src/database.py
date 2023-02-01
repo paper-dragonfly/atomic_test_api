@@ -1,10 +1,12 @@
 from sqlalchemy import Column, Integer, String, Sequence, create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-from src.business import get_conn_str 
+# from src.business import get_conn_str 
+from src.api import conn_str
 
 # Create a session to connect to the db
-conn_str = get_conn_str('dev_hybrid')
+# conn_str = get_conn_str('dev_hybrid')
+
 engine = create_engine(conn_str, echo=True) 
 Session = sessionmaker(bind=engine)
 
