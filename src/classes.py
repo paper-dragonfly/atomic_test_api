@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class Athlete(BaseModel):
+class AthletePostSchema(BaseModel):
     username:str
     team: str
 

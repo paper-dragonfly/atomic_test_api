@@ -3,25 +3,40 @@ import pdb
 from typing import Union, List
 from http import HTTPStatus
 
+import uvicorn 
 from sqlalchemy import create_engine 
 from sqlalchemy.orm import sessionmaker 
-from fastapi import FastAPI, Request 
-import uvicorn 
+from fastapi import FastAPI, Request
+#adding cors headers
+from fastapi.middleware.cors import CORSMiddleware
+ 
 
-from src.classes import Response, Athlete
+from src.classes import Response, AthletePostSchema
 import src.business as b
 from src.database import AthleteTable
 
 # CONSTANTS
-# ENV = b.get_env('dev_hybrid')
-# conn_str = b.get_conn_str(ENV)
-conn_str = os.getenv('conn_str')
+ENV = b.get_env('dev_hybrid')
+conn_str = b.get_conn_str(ENV)
+# conn_str = os.getenv('conn_str')
 
 # INSTANTIATIONS 
 app = FastAPI() 
 engine = create_engine(conn_str, echo=True) 
 Session = sessionmaker(bind=engine) 
 
+#add cors urls and middleware
+origins = [
+    'http://locoalhost:3000',
+    'localhost:3000' ]
+
+app.add_middleware(
+    CORSMiddleware, 
+    allow_origins=origins,
+    allow_credentials = True,
+    allow_methods = ["*"],
+    allow_headers = ['*']
+    )
 
 # ENDPOINTS 
 @app.get("/")
@@ -41,7 +56,7 @@ def read_users(username:str=None):
     """
     try:
         with Session() as session:
-            user_data:List[Athlete] = session.query(AthleteTable).all() 
+            user_data:List[AthletePostSchema] = session.query(AthleteTable).all() 
     except Exception as e:
         return Response(status_code=500, error_message=e)
     if username:
@@ -52,7 +67,7 @@ def read_users(username:str=None):
     return Response(body={'athletes':user_data})
 
 @app.post('/athlete')
-def create_athlete(athlete: Athlete):
+def create_athlete(athlete: AthletePostSchema): #take in post info - parse to confirm matches expected AthletePostSchema params
     """
     Add athlete to db, return ID
     """
